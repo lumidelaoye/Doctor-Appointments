@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+  rest_api:
+    container_name: rest_api
+    image: rest_api
+    build: ./
+    command: bash -c "
+      python manage.py makemigrations
+      &&
+      python manage.py migrate
+      &&
+      python manage.py runserver 0.0.0.0:8000"
+      &&
+      python manage.py test fleet.tests
+    volumes:
+      - "./:/app"
+    ports:
+      - "8000:8000"
